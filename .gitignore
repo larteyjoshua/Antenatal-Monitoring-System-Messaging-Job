@@ -2,3 +2,7 @@
 /celerybeat-schedule.dat
 /celerybeat-schedule.dir
 /.env
+/__pycache__/celeryWorker.cpython-310.pyc
+/__pycache__/processTextMessage.cpython-310.pyc
+/__pycache__/tasks.cpython-310.pyc
+/models/__pycache__/model.cpython-310.pyc

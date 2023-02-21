@@ -24,11 +24,18 @@ celery.conf.beat_schedule = {
         'schedule': 30.0,
         'args': (16, 16)
     },
-     'process_text_message': {
-        'task': 'tasks.process_text_message',
-        'schedule': 200.0,
+     'process_one_day_message': {
+        'task': 'tasks.process_one_day_message',
+        'schedule':crontab(minute=0,hour='15'),
+    },
+
+    'process_today_message': {
+        'task': 'tasks.process_today_message',
+        'schedule': crontab(minute=0,hour='7,8'),
     },
 }
+#4pm
+#7.0am
 #crontab(minute=0,hour='11,12,13,14,15,16,17,18,19,20, 21, 22, 23, 0')
 # if __name__ == '__main__':
 #     celery.start()

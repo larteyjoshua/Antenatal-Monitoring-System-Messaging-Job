@@ -12,9 +12,15 @@ def sum_number(x, y):
     celery_log.info("I am suppose to run")
     return add
 
-@celery.task(name ='tasks.process_text_message')
-def process_text_message():
-    processTextMessage.processingTextMessaging()
+@celery.task(name ='tasks.process_today_message')
+def process_today_message():
+    processTextMessage.processingTodayTextMessaging()
+   
+    return {"message": "Processing Text Messaging"}
+
+@celery.task(name ='tasks.process_one_day_message')
+def process_one_day_message():
+    processTextMessage.processingDayBeforeTextMessaging()
    
     return {"message": "Processing Text Messaging"}
 
