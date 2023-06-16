@@ -1,21 +1,21 @@
-from celery import Celery
-from celery.utils.log import get_task_logger
-from celery.schedules import crontab
+# from celery import Celery
+# from celery.utils.log import get_task_logger
+# from celery.schedules import crontab
 
 
-celery = Celery(
-    broker="pyamqp://guest@localhost//",
-    include=['app.tasks']
-)
+# celery = Celery(
+#     broker="pyamqp://guest@localhost//",
+#     include=['app.tasks']
+# )
 
-celery.conf.update(
-    task_serializer='json',
-    result_serializer='json',
-    timezone='UTC',
-    enable_utc=True,
-)
+# celery.conf.update(
+#     task_serializer='json',
+#     result_serializer='json',
+#     timezone='UTC',
+#     enable_utc=True,
+# )
 
-celery_log = get_task_logger(__name__)
+# celery_log = get_task_logger(__name__)
 
 
 # celery.conf.beat_schedule = {
