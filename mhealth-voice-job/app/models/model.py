@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Table, Integer, String, ForeignKey, DateTime, Float, Boolean, Text
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float, Boolean, Text
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from app.utils.database import Base
@@ -15,6 +15,28 @@ class Admin(Base):
     dateAdded = Column(DateTime, default=datetime.now)
     mother = relationship("ExpectedMother", back_populates="admins")
     appointment = relationship("Appointment", back_populates="admin")
+    which_user = relationship('UserRole', back_populates="which_role")
+
+
+class Role(Base):
+    __tablename__ = 'roles'
+    id = Column(Integer, primary_key=True, index=True)
+    role_name = Column(String(655))
+    description = Column(String(655))
+    date_created = Column(DateTime, default=datetime.now)
+    roles = relationship('UserRole',  back_populates="user_role")
+
+
+class UserRole(Base):
+    __tablename__ = 'user_roles'
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey('admins.id'))
+    role_id = Column(Integer, ForeignKey('roles.id'))
+    date_modified = Column(
+        DateTime, default=datetime.now,  onupdate=datetime.now)
+
+    which_role = relationship('Admin', back_populates="which_user")
+    user_role = relationship('Role',  back_populates="roles")
 
 
 class ExpectedMother(Base):
@@ -38,6 +60,8 @@ class ExpectedMother(Base):
     mother = relationship("Comment", back_populates="expected_mother")
     appointment = relationship("Appointment", back_populates="expected_mother")
     voice = relationship("Voice", back_populates="expected_mother")
+    activity = relationship(
+        "Activity", back_populates="expected_mother_activity")
 
 
 class Appointment(Base):
@@ -80,3 +104,14 @@ class Voice(Base):
 
     appointment = relationship("Appointment", back_populates="recording")
     expected_mother = relationship("ExpectedMother", back_populates="voice")
+
+
+class Activity(Base):
+    __tablename__ = 'activities'
+    id = Column(Integer, primary_key=True, index=True)
+    expected_mother_id = Column(Integer, ForeignKey('ExpectedMothers.id'))
+    activity_type = Column(String, index=True)
+    activity_date = Column(DateTime, default=datetime.now)
+    status = Column(String, index=True)
+    expected_mother_activity = relationship(
+        "ExpectedMother", back_populates="activity")

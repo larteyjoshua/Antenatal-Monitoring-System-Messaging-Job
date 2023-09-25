@@ -20,5 +20,6 @@ def sendSMS(sender: str, message: str, phone_numbers):
         url=settings.SEND_SMS_URL,
         data=params,
         headers=headers)
+    logger.info(messageResponse)
     logger.info(messageResponse.json())
     return messageResponse.json()

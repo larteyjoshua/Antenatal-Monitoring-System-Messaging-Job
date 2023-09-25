@@ -1,6 +1,6 @@
 import os
 from functools import lru_cache
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
@@ -17,12 +17,10 @@ class Settings(BaseSettings):
         SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URL.replace(
             "postgres://", "postgresql://", 1)
 
-    CELERY_BROKER_URL: str = os.environ.get("CELERY_BROKER_URL")
-    CELERY_RESULT_BACKEND: str = os.environ.get("CELERY_RESULT_BACKEND")
-
     class Config:
         case_sensitive = True
         env_file = ".env"
+        extra = "allow"
 
 
 @lru_cache()

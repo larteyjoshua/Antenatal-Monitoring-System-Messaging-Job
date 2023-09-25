@@ -22,6 +22,7 @@ def sendVoiceSMS(phone_number: str):
     messageResponse = requests.post(
         url=settings.SEND_VOICE_SMS_URL,
         data=data,
-        headers=headers,)
+        headers=headers)
+    logger.info(messageResponse)
     logger.info(messageResponse.json())
     return messageResponse.json()

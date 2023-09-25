@@ -6,6 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from app.utils import config
 from loguru import logger
 from app.utils.dateUtils import count_days
+from app import create_activities
 
 
 def processingTodayTextMessaging():
@@ -33,6 +34,9 @@ def processingTodayTextMessaging():
                 sender = config.settings.SENDER_ID
                 message = "Hi {},\n You are reminded to report to Antenatal on {} at {}.\n Thank You!".format(mother.first_name, appointmentData.appointed_date,
                                                                                                               appointmentData.appointed_time)
-                sendSMS(sender, message, phone_numbers)
+                respond = sendSMS(sender, message, phone_numbers)
+                status = respond['status']
+                mother_id = mother.id
+                create_activities.create_activity(mother_id, status)
     db.close()
     logger.info("Text Message Processing End")
