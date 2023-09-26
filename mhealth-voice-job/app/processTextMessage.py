@@ -7,6 +7,7 @@ from loguru import logger
 from app.utils.dateUtils import count_days
 from app.helpers.arkeselTextMessage import sendVoiceSMS
 from app import create_activities
+from app.helpers.mNotifyHelper import sendVoiceSMSWithMnotify
 
 
 def sendingVoiceSMS():
@@ -34,7 +35,14 @@ def sendingVoiceSMS():
                 phone_number = "233" + number[1:]
                 respond = sendVoiceSMS(phone_number)
                 status = respond['status']
-                mother_id = mother.id
-                create_activities.create_activity(mother_id, status)
+                if status == 'error':
+                    mResponse = sendVoiceSMSWithMnotify(number)
+                    mStatus = mResponse['status']
+                    mother_id = mother.id
+                    create_activities.create_activity(mother_id, mStatus)
+
+                else:
+                    mother_id = mother.id
+                    create_activities.create_activity(mother_id, status)
     db.close()
     logger.info("Voice Message Processing End")

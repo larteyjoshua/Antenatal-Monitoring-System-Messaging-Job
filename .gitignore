@@ -1,7 +1,6 @@
-/celerybeat-schedule.bak
-/celerybeat-schedule.dat
-/celerybeat-schedule.dir
-/.env
+
+/mhealth-text-job/.env
+/mhealth-voice-job/.env
 /__pycache__/celeryWorker.cpython-310.pyc
 /__pycache__/processTextMessage.cpython-310.pyc
 /__pycache__/tasks.cpython-310.pyc

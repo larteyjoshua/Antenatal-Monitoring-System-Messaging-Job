@@ -13,6 +13,8 @@ class Settings(BaseSettings):
     SENDER_ID: str = os.environ.get("SENDER_ID")
     SEND_VOICE_SMS_URL: str = os.environ.get("SEND_VOICE_SMS_URL")
     SQLALCHEMY_DATABASE_URL: str = os.environ.get("DATABASE_URL")
+    MNOTIFY_VOICE_SMS_URL: str = os.environ.get("MNOTIFY_VOICE_SMS_URL")
+    MNOTIFY_API_KEY: str = os.environ.get("MNOTIFY_API_KEY")
     if SQLALCHEMY_DATABASE_URL and SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
         SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URL.replace(
             "postgres://", "postgresql://", 1)
